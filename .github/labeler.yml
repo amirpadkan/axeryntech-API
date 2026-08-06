@@ -1,0 +1,36 @@
+docs:
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - '**/*.md'
+      - all-globs-to-all-files:
+        - '!backend/**'
+        - '!.github/**'
+        - '!scripts/**'
+        - '!.gitignore'
+        - '!.pre-commit-config.yaml'
+
+internal:
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - .github/**
+        - scripts/**
+        - .gitignore
+        - .pre-commit-config.yaml
+      - all-globs-to-all-files:
+        - '!./**/*.md'
+        - '!backend/**'
+
+backend:
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - 'backend/**'
+
+docker:
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - 'compose*.yml'
+        - 'backend/Dockerfile'

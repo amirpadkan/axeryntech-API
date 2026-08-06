@@ -1,0 +1,138 @@
+[project]
+name = "taskpilot-api"
+version = "1.0.0"
+description = "TaskPilot - Professional Project Management API"
+requires-python = ">=3.14,<4.0"
+dependencies = [
+    "fastapi[standard]>=0.139.0,<1.0.0",
+    "python-multipart<1.0.0,>=0.0.27",
+    "email-validator<3.0.0.0,>=2.1.0.post1",
+    "tenacity<10.0.0,>=8.2.3",
+    "pydantic>2.0",
+    "emails>=1.1.2,<2.0",
+    "jinja2<4.0.0,>=3.1.4",
+    "alembic<2.0.0,>=1.12.1",
+    "httpx<1.0.0,>=0.25.1",
+    "psycopg[binary]<4.0.0,>=3.1.13",
+    "sqlmodel>=0.0.39,<1.0.0",
+    "pydantic-settings<3.0.0,>=2.2.1",
+    "sentry-sdk[fastapi]>=2.63.0,<3.0.0",
+    "pyjwt<3.0.0,>=2.13.0",
+    "pwdlib[argon2,bcrypt]>=0.3.0",
+    "redis>=5.0.0,<6.0.0",
+    "slowapi>=0.1.9,<1.0.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-dateutil>=2.8.0,<3.0.0",
+    "pytz>=2024.1",
+    "celery[redis]>=5.4.0,<6.0.0",
+    "orjson>=3.9.0,<4.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest<10.0.0,>=7.4.3",
+    "pytest-asyncio<1.0.0,>=0.21.0",
+    "mypy<3.0.0,>=1.8.0",
+    "ty>=0.0.25",
+    "ruff<1.0.0,>=0.2.2",
+    "coverage<8.0.0,>=7.4.3",
+    "factory-boy<4.0.0,<5.0.0",
+    "faker>=20.0.0,<30.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.mypy]
+strict = true
+exclude = ["venv", ".venv", "alembic"]
+
+[tool.ruff]
+target-version = "py314"
+exclude = ["alembic"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "C4",
+    "UP",
+    "ARG001",
+    "T201",
+    "N",
+    "S",
+    "BLE",
+    "FBT",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "PIE",
+    "T20",
+    "PYI",
+    "PT",
+    "RSE",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "TC",
+    "INT",
+    "ARG",
+    "PTH",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    "NPY",
+    "PERF",
+    "FURB",
+    "LOG",
+    "RUF",
+]
+ignore = [
+    "E501",
+    "B008",
+    "W191",
+    "B904",
+    "S101",
+    "TRY003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "ARG", "FBT"]
+
+[tool.ruff.lint.pyupgrade]
+keep-runtime-typing = true
+
+[tool.coverage.run]
+source = ["app"]
+dynamic_context = "test_function"
+
+[tool.coverage.report]
+show_missing = true
+sort = "-Cover"
+
+[tool.coverage.html]
+show_contexts = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ty.terminal]
+error-on-warning = true
+
+[tool.fastapi]
+entrypoint = "app.main:app"
